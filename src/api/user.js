@@ -1,5 +1,5 @@
 import fly from '@/utils/request'
 
-export function login (openid) {
-  return fly.post('/users/', {openid})
+export function login (loginCode) {
+  return fly.post('/auth/login/', {loginCode})
 }
