@@ -18,6 +18,7 @@
       <input type="text" class="form-control" v-model="motto" placeholder="v-model" />
       <input type="text" class="form-control" v-model.lazy="motto" placeholder="v-model.lazy" />
     </form>
+    <van-button type="primary">测试</van-button>
     <a href="/pages/counter" class="counter">去往Vuex示例页面</a>
   </div>
 </template>

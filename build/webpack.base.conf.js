@@ -10,10 +10,11 @@ function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
-const entry = MpvueEntry.getEntry('./src/pages.js')
-
 module.exports = {
-  entry,
+  entry: MpvueEntry.getEntry({
+    pages: 'src/router/index.js',
+    app: 'src/app.json'
+  }),
   target: require('mpvue-webpack-target'),
   output: {
     path: config.build.assetsRoot,
