@@ -1,6 +1,7 @@
 <template>
   <div :class="{'base-content--padding' : padding}">
     <p v-if="title" class="base-content__header">{{ title }}</p>
+
     <slot></slot>
   </div>
 </template>
@@ -20,7 +21,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .base-content__header {
   margin: 0;
   color: rgba(69,90,100,.6);
@@ -31,6 +32,7 @@ export default {
 
 .base-content--padding {
   padding: 0 15px;
+  z-index: -1;
 }
 
 .base-content--padding .base-content__header {

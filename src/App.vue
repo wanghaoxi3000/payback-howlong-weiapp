@@ -23,10 +23,12 @@ export default {
 
 <style>
 .page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   color: #333;
   font-size: 16px;
   background: #f8f8f8;
-  min-height: 100vh;
   box-sizing: border-box;
   padding: 0 0 100rpx;
   -webkit-font-smoothing: antialiased;

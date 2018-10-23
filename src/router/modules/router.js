@@ -9,9 +9,10 @@ module.exports = [
     config: {
       navigationBarTitleText: 'How Long',
       usingComponents: {
+        'van-loading': '/static/vant/loading/index',
         'van-transition': '/static/vant/transition/index',
         'van-icon': '/static/vant/icon/index',
-        'van-tag': '/static/vant/tag/index',
+        'van-button': '/static/vant/button/index',
         'van-cell': '/static/vant/cell/index',
         'van-cell-group': '/static/vant/cell-group/index'
       }
