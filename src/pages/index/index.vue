@@ -1,35 +1,37 @@
 <template>
   <div class="page">
-    <BaseBlock :title="'卡信息'">
+    <BaseBlock :title="'卡信息'" >
       <div class="loading" v-if="loading">
         <van-loading/>
       </div>
 
-      <CreditList v-else :credits="creditList"></CreditList>
+      <CreditList v-else :credits="creditList" @openPopup="openPopup"></CreditList>
     </BaseBlock>
 
+    <CreditPopup :creditItem="creditItem" :show.sync="showPopup" @click.stop/>
 
-    <!-- <div class="index-bottom-space">
-      <van-button type="primary" size="small">test</van-button>
-    </div> -->
   </div>
 </template>
 
 <script>
-import {creditList} from '@/api/credit.js'
+import { creditList } from '@/api/credit.js'
 
 import BaseBlock from '@/components/BaseBlock'
 import CreditList from './components/CreditList'
+import CreditPopup from './components/CreditPopup'
 
 export default {
   components: {
     BaseBlock,
-    CreditList
+    CreditList,
+    CreditPopup
   },
   data () {
     return {
       loading: true,
-      creditList: []
+      creditList: [],
+      showPopup: false,
+      creditItem: ''
     }
   },
   created () {
@@ -39,10 +41,13 @@ export default {
     async fetchData () {
       this.loading = true
 
-      const {data} = await creditList()
+      const { data } = await creditList()
       this.creditList = data
-
       this.loading = false
+    },
+    openPopup (val) {
+      this.creditItem = val
+      this.showPopup = true
     }
   }
 }
