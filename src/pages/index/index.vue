@@ -8,7 +8,7 @@
       <CreditList v-else :credits="creditList" @openPopup="openPopup"></CreditList>
     </BaseBlock>
 
-    <CreditPopup :creditItem="creditItem" :show.sync="showPopup" @click.stop/>
+    <CreditPopup :creditItem="creditItem" :showPopup.sync="showPopup"/>
 
   </div>
 </template>
@@ -31,7 +31,8 @@ export default {
       loading: true,
       creditList: [],
       showPopup: false,
-      creditItem: ''
+      creditItem: '',
+      showDialog: false
     }
   },
   created () {
