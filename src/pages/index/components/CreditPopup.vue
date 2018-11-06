@@ -5,12 +5,6 @@
       <van-button size="large" custom-class="handle-botton" @click="clickEdit"><van-icon name="edit-data" custom-class="edit-icon"/> 修改</van-button>
       <van-button size="large" type="danger" custom-class="handle-botton" @click="clickDelete"><van-icon name="delete" custom-class="edit-icon"/> 删除</van-button>
     </van-popup>
-    <van-dialog id="van-dialog" use-slot :showCancelButton="true" :show="creditEditDialog" title="修改" @close="closeEditDialog" @confirm="editBtn">
-      <van-field :value="creditTarget.Name" label="Name" placeholder="请输入Name" :border="true" @change="changeName"/>
-      <van-field :value="creditTarget.BillDay" label="账单日" placeholder="请输入账单日" :border="true" @change="changeBillDay"/>
-      <van-field :value="creditTarget.PayDay" label="还款日" placeholder="请输入还款日" :border="true" @change="changePayDay"/>
-      <div class="billDay"><span>固定还款日: &nbsp;&nbsp;</span><van-switch :checked="creditTarget.PayFix" size="20px" @change="onChange" /></div>
-    </van-dialog>
     <van-dialog id="van-dialog" :showCancelButton="true" :show="creditDeleteDialog" title="删除" message="此操作将永久删除该文件, 是否继续?" @close="closeDialog"/>
   </div>
 </template>
@@ -20,48 +14,26 @@ export default {
   props: {
     creditItem: {
       type: Object,
-      default: ''
+      default: {}
     },
     showPopup: {
+      type: Boolean,
+      default: false
+    },
+    creditEditDialog: {
       type: Boolean,
       default: false
     }
   },
   data () {
     return {
-      creditTarget: {},
-      billDayStepper: 1,
-      creditEditDialog: false,
       creditDeleteDialog: false
-    }
-  },
-  watch: {
-    creditItem () {
-      this.creditTarget = this.creditItem
     }
   },
   methods: {
     clickEdit () {
-      this.creditEditDialog = true
+      this.$emit('openDialog', 0)
       this.closePopup()
-    },
-    closeEditDialog () {
-      this.creditEditDialog = false
-    },
-    changeName (e) {
-      this.creditTarget.Name = e.mp.detail
-    },
-    changeBillDay (e) {
-      this.creditTarget.BillDay = e.mp.detail
-    },
-    changePayDay (e) {
-      this.creditTarget.PayDay = e.mp.detail
-    },
-    onChange (e) {
-      this.creditTarget.PayFix = e.mp.detail
-    },
-    editBtn () {
-      console.log(this.creditTarget)
     },
     clickDelete () {
       this.creditDeleteDialog = true

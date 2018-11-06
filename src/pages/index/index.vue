@@ -1,15 +1,16 @@
 <template>
   <div class="page">
-    <BaseBlock :title="'卡信息'" >
-      <div class="loading" v-if="loading">
+    <BaseBlock :title="'卡信息'" @openDialog="openDialog" :creditItem="creditItem"></BaseBlock>
+    <div>
+       <div class="loading" v-if="loading">
         <van-loading/>
       </div>
-
       <CreditList v-else :credits="creditList" @openPopup="openPopup"></CreditList>
-    </BaseBlock>
+    </div>
 
-    <CreditPopup :creditItem="creditItem" :showPopup.sync="showPopup"/>
+    <CreditPopup :showPopup.sync="showPopup" :creditItem="creditItem" @openDialog="openDialog"/>
 
+    <CreditDialog :creditEditDialog.sync="creditEditDialog" :creditItem="creditItem"/>
   </div>
 </template>
 
@@ -19,20 +20,28 @@ import { creditList } from '@/api/credit.js'
 import BaseBlock from '@/components/BaseBlock'
 import CreditList from './components/CreditList'
 import CreditPopup from './components/CreditPopup'
+import CreditDialog from './components/CreditDialog'
 
 export default {
   components: {
     BaseBlock,
     CreditList,
-    CreditPopup
+    CreditPopup,
+    CreditDialog
   },
   data () {
     return {
       loading: true,
       creditList: [],
       showPopup: false,
-      creditItem: '',
-      showDialog: false
+      creditItem: {
+        Name: '',
+        BillDay: '',
+        PayDay: '',
+        PayFix: true
+      },
+      showDialog: false,
+      creditEditDialog: false
     }
   },
   created () {
@@ -49,6 +58,9 @@ export default {
     openPopup (val) {
       this.creditItem = val
       this.showPopup = true
+    },
+    openDialog (val) {
+      this.creditEditDialog = true
     }
   }
 }

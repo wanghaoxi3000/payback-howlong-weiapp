@@ -1,12 +1,15 @@
 <template>
-  <div :class="{'base-content--padding' : padding}">
-    <p v-if="title" class="base-content__header">{{ title }}</p>
-    <van-button size="small" custom-class="base-content-button"><van-icon name="records" custom-class="base-content-button__icon"/> 创建</van-button>
-    <slot></slot>
+  <div>
+    <div :class="{'base-content--padding' : padding}">
+      <p v-if="title" class="base-content__header">{{ title }}</p>
+      <van-button size="small" custom-class="base-content-button" @click="addCredit"><van-icon name="records" custom-class="base-content-button__icon"/> 创建</van-button>
+      <slot></slot>
+    </div>
   </div>
 </template>
 
 <script>
+
 export default {
   props: {
     title: {
@@ -16,6 +19,16 @@ export default {
     padding: {
       type: Boolean,
       default: false
+    }
+  },
+  data () {
+    return {
+      creditEditDialog: false
+    }
+  },
+  methods: {
+    addCredit () {
+      this.$emit('openDialog', 1)
     }
   }
 }
@@ -48,6 +61,6 @@ export default {
 }
 .base-content-button__icon {
   float:  left !important;
-  line-height: 33px !important;
+  line-height: 28px !important;
 }
 </style>
