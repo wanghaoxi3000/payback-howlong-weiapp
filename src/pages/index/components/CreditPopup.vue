@@ -5,7 +5,8 @@
       <van-button size="large" custom-class="handle-botton" @click="clickEdit"><van-icon name="edit-data" custom-class="edit-icon"/> 修改</van-button>
       <van-button size="large" type="danger" custom-class="handle-botton" @click="clickDelete"><van-icon name="delete" custom-class="edit-icon"/> 删除</van-button>
     </van-popup>
-    <van-dialog id="van-dialog" :showCancelButton="true" :show="creditDeleteDialog" title="删除" message="此操作将永久删除该文件, 是否继续?" @close="closeDialog"/>
+
+    <van-dialog id="van-dialog" :show="deleteDialog" :showCancelButton="true" title="删除" message="此操作将永久删除该文件, 是否继续?" @close="closeDialog"/>
   </div>
 </template>
 
@@ -27,20 +28,20 @@ export default {
   },
   data () {
     return {
-      creditDeleteDialog: false
+      deleteDialog: false
     }
   },
   methods: {
     clickEdit () {
-      this.$emit('openDialog', 0)
+      this.$emit('openDialog')
       this.closePopup()
     },
     clickDelete () {
-      this.creditDeleteDialog = true
+      this.deleteDialog = true
       this.closePopup()
     },
     closeDialog () {
-      this.creditDeleteDialog = false
+      this.deleteDialog = false
     },
     closePopup () {
       this.$emit('update:showPopup', false)

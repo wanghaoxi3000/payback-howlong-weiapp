@@ -1,10 +1,11 @@
 <template>
-  <div>
-    <div :class="{'base-content--padding' : padding}">
-      <p v-if="title" class="base-content__header">{{ title }}</p>
-      <van-button size="small" custom-class="base-content-button" @click="addCredit"><van-icon name="records" custom-class="base-content-button__icon"/> 创建</van-button>
-      <slot></slot>
-    </div>
+  <div :class="{'base-content--padding' : padding}">
+    <p v-if="title" class="base-content__header">{{ title }}</p>
+    <van-button v-if="buttonTitle" size="small" custom-class="base-content-button" @click="clickButton">
+      <van-icon v-if="buttonIcon" :name="buttonIcon" custom-class="base-content-button__icon"/>
+      {{buttonTitle}}
+    </van-button>
+    <slot></slot>
   </div>
 </template>
 
@@ -15,6 +16,14 @@ export default {
     title: {
       type: String,
       default: ''
+    },
+    buttonTitle: {
+      type: String,
+      defult: null
+    },
+    buttonIcon: {
+      type: String,
+      defult: null
     },
     padding: {
       type: Boolean,
@@ -27,8 +36,8 @@ export default {
     }
   },
   methods: {
-    addCredit () {
-      this.$emit('openDialog', 1)
+    clickButton () {
+      this.$emit('clickButton')
     }
   }
 }
@@ -47,7 +56,6 @@ export default {
 
 .base-content--padding {
   padding: 0 15px;
-  z-index: -1;
 }
 
 .base-content--padding .base-content__header {

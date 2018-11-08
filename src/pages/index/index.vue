@@ -1,16 +1,21 @@
 <template>
   <div class="page">
-    <BaseBlock :title="'卡信息'" @openDialog="openDialog" :creditItem="creditItem"></BaseBlock>
-    <div>
-       <div class="loading" v-if="loading">
-        <van-loading/>
-      </div>
-      <CreditList v-else :credits="creditList" @openPopup="openPopup"></CreditList>
+    <BaseBlock title="卡信息" buttonTitle="创建" buttonIcon="add-o" @clickButton="openDialog" :creditItem="creditItem" />
+
+    <div class="loading" v-if="loading">
+      <van-loading/>
     </div>
+
+    <CreditList :credits="creditList" @openPopup="openPopup"></CreditList>
 
     <CreditPopup :showPopup.sync="showPopup" :creditItem="creditItem" @openDialog="openDialog"/>
 
-    <CreditDialog :creditEditDialog.sync="creditEditDialog" :creditItem="creditItem"/>
+    <van-dialog id="van-dialog" :show="EditDialog" use-slot :showCancelButton="true" >
+      <van-field :value="creditItem.Name" label="Name" placeholder="请输入Name" :border="true"/>
+      <van-field :value="creditItem.BillDay" label="账单日" placeholder="请输入账单日" :border="true"/>
+      <van-field :value="creditItem.PayDay" label="还款日" placeholder="请输入还款日" :border="true"/>
+      <div class="billDay"><span>固定还款日: &nbsp;&nbsp;</span><van-switch :checked="creditItem.PayFix" size="20px" /></div>
+    </van-dialog>
   </div>
 </template>
 
@@ -20,28 +25,21 @@ import { creditList } from '@/api/credit.js'
 import BaseBlock from '@/components/BaseBlock'
 import CreditList from './components/CreditList'
 import CreditPopup from './components/CreditPopup'
-import CreditDialog from './components/CreditDialog'
+// import CreditDialog from './components/CreditDialog'
 
 export default {
   components: {
     BaseBlock,
     CreditList,
-    CreditPopup,
-    CreditDialog
+    CreditPopup
   },
   data () {
     return {
       loading: true,
       creditList: [],
+      creditItem: {},
       showPopup: false,
-      creditItem: {
-        Name: '',
-        BillDay: '',
-        PayDay: '',
-        PayFix: true
-      },
-      showDialog: false,
-      creditEditDialog: false
+      EditDialog: false
     }
   },
   created () {
@@ -56,11 +54,11 @@ export default {
       this.loading = false
     },
     openPopup (val) {
-      this.creditItem = val
+      this.creditItem = this.creditList[val]
       this.showPopup = true
     },
     openDialog (val) {
-      this.creditEditDialog = true
+      this.EditDialog = true
     }
   }
 }
@@ -73,6 +71,5 @@ export default {
 
 .index-bottom-space {
   align-self: flex-end;
-  /* align-items: flex-end; */
 }
 </style>

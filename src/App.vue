@@ -33,7 +33,6 @@ export default {
   padding: 0 0 100rpx;
   -webkit-font-smoothing: antialiased;
   font-family: 'PingFang SC', Helvetica, 'STHeiti STXihei', 'Microsoft YaHei', Tohoma, Arial, sans-serif;
-  padding-bottom: 34px;
 }
 
 .container {

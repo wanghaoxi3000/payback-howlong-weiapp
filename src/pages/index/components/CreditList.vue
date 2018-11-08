@@ -1,7 +1,7 @@
 <template>
   <div>
     <van-cell-group v-for="(item, index) in credits" :key="index"  @click.stop>
-      <van-cell :title="item.Name" :label="'今日消费还款日: ' + item.DateDetail.CurPay" :border="item.showDetail ? true : false"  @click="clickItem(item)">
+      <van-cell :title="item.Name" :label="'今日消费还款日: ' + item.DateDetail.CurPay" :border="item.showDetail ? true : false"  @click="clickItem(index)">
         <view slot="right-icon" @click.stop>
           <van-button type="primary" size="small" round @click="clickCell(index)">{{item.DateDetail.IntervalPay}} 天</van-button>
         </view>
@@ -28,8 +28,8 @@ export default {
     }
   },
   methods: {
-    clickItem (val) {
-      this.$emit('openPopup', val)
+    clickItem (index) {
+      this.$emit('openPopup', index)
     },
     clickCell (index) {
       if (this.credits[index].showDetail) {
