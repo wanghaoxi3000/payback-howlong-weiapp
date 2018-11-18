@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <BaseBlock title="卡信息" buttonTitle="创建" buttonIcon="add-o" @clickButton="openDialog" :creditItem="creditItem" />
+    <BaseBlock title="卡信息" buttonTitle="创建" buttonIcon="add-o" @clickButton="openDialog" />
 
     <div class="loading" v-if="loading">
       <van-loading/>
@@ -10,7 +10,12 @@
 
     <CreditPopup :showPopup.sync="showPopup" :creditItem="creditItem" @openDialog="openDialog"/>
 
-    <van-dialog id="van-dialog" :show="EditDialog" use-slot :showCancelButton="true" >
+    <van-dialog id="van-dialog"
+      :show="EditDialog"
+      use-slot
+      :showCancelButton="true"
+      @confirm="confirmDialog"
+      @close="closeDialog">
       <van-field :value="creditItem.Name" label="Name" placeholder="请输入Name" :border="true"/>
       <van-field :value="creditItem.BillDay" label="账单日" placeholder="请输入账单日" :border="true"/>
       <van-field :value="creditItem.PayDay" label="还款日" placeholder="请输入还款日" :border="true"/>
@@ -59,6 +64,13 @@ export default {
     },
     openDialog (val) {
       this.EditDialog = true
+    },
+    closeDialog () {
+      this.EditDialog = false
+      this.creditItem = {}
+    },
+    confirmDialog () {
+      console.log(this.creditItem)
     }
   }
 }
