@@ -18,7 +18,8 @@ module.exports = [{
       'van-dialog': '/static/vant/dialog/index',
       'van-field': '/static/vant/field/index',
       'van-stepper': '/static/vant/stepper/index',
-      'van-switch': '/static/vant/switch/index'
+      'van-switch': '/static/vant/switch/index',
+      'van-notify': '/static/vant/notify/index'
     }
   }
 }, {

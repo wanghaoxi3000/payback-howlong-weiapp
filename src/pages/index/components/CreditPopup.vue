@@ -6,11 +6,12 @@
       <van-button size="large" type="danger" custom-class="handle-botton" @click="clickDelete"><van-icon name="delete" custom-class="edit-icon"/> 删除</van-button>
     </van-popup>
 
-    <van-dialog id="van-dialog" :show="deleteDialog" :showCancelButton="true" title="删除" message="此操作将永久删除该文件, 是否继续?" @close="closeDialog"/>
+    <van-dialog id="van-dialog" :show="deleteDialog" :showCancelButton="true" title="删除" message="此操作将永久删除该文件, 是否继续?" @confirm="deleteconfirm" @close="closeDialog"/>
   </div>
 </template>
 
 <script>
+import { deleteCredit } from '@/api/credit.js'
 export default {
   props: {
     creditItem: {
@@ -45,6 +46,15 @@ export default {
     },
     closePopup () {
       this.$emit('update:showPopup', false)
+    },
+    async deleteconfirm () {
+      try {
+        const { data } = deleteCredit(this.creditItem.Id)
+        console.log(data)
+        this.$emit('fetchData')
+      } catch (err) {
+        console.log(err)
+      }
     }
   }
 }
@@ -67,10 +77,9 @@ export default {
   line-height: 60px !important;
   padding: 0px 0 0 30px !important;
 }
-.billDay{
+.billDay {
   display: flex;
   font-size: 16px;
-  padding:10px 15px;
-
+  padding: 10px 15px;
 }
 </style>

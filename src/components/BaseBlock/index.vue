@@ -1,7 +1,7 @@
 <template>
   <div :class="{'base-content--padding' : padding}">
     <p v-if="title" class="base-content__header">{{ title }}</p>
-    <van-button v-if="buttonTitle" size="small" custom-class="base-content-button" @click="clickButton">
+    <van-button v-if="buttonTitle" size="small" custom-class="base-content-button" :disabled="loading" @click="clickButton">
       <van-icon v-if="buttonIcon" :name="buttonIcon" custom-class="base-content-button__icon"/>
       {{buttonTitle}}
     </van-button>
@@ -10,7 +10,6 @@
 </template>
 
 <script>
-
 export default {
   props: {
     title: {
@@ -28,6 +27,10 @@ export default {
     padding: {
       type: Boolean,
       default: false
+    },
+    loading: {
+      type: Boolean,
+      defult: false
     }
   },
   data () {
@@ -68,7 +71,7 @@ export default {
   border: none !important;
 }
 .base-content-button__icon {
-  float:  left !important;
+  float: left !important;
   line-height: 28px !important;
 }
 </style>

@@ -1,5 +1,5 @@
 <script>
-// import {login} from '@/api/user.js'
+// import { login } from '@/api/auth.js'
 
 export default {
   created () {
@@ -16,7 +16,7 @@ export default {
     wx.setStorageSync('logs', logs)
 
     // eslint-disable-next-line
-    console.log('app created and cache logs by setStorageSync')
+    console.log("app created and cache logs by setStorageSync");
   }
 }
 </script>
@@ -32,7 +32,8 @@ export default {
   box-sizing: border-box;
   padding: 0 0 100rpx;
   -webkit-font-smoothing: antialiased;
-  font-family: 'PingFang SC', Helvetica, 'STHeiti STXihei', 'Microsoft YaHei', Tohoma, Arial, sans-serif;
+  font-family: "PingFang SC", Helvetica, "STHeiti STXihei", "Microsoft YaHei",
+    Tohoma, Arial, sans-serif;
 }
 
 .container {
