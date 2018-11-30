@@ -79,7 +79,7 @@ export default {
       this.showPopup = true
     },
 
-    openDialog (val) {
+    openDialog () {
       /** @description 点击创建按钮 弹出Dialog */
       this.EditDialog = true
       for (const v in this.creditItem) {

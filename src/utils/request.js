@@ -13,8 +13,7 @@ fly.interceptors.request.use(request => {
   if (store.getters.token) {
     request.headers['Authorization'] = store.getters.jwtToken
     // 更新Token，延长过期时间
-    console.log(Date.now() - store.getters.nowTime)
-    if (Date.now() - store.getters.nowTime > 60) {
+    if (Date.now() - store.getters.nowTime > 600) {
       tokenrRefresh.request('/auth/refresh-token/', {}, {
         method: 'get',
         timeout: 5000, // 超时设置为5s
@@ -22,8 +21,6 @@ fly.interceptors.request.use(request => {
           'Authorization': store.getters.jwtToken
         }
       }).then(res => {
-        console.log(res.data.token, 44444444)
-        console.log(res.data.token === store.getters.token)
         store.commit('SET_TOKEN', res.data.token)
         store.commit('NOW_TIME', Date.now())
       }, err => {

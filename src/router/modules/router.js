@@ -32,5 +32,11 @@ module.exports = [{
 },
 {
   path: 'components/BaseBlock/index'
+},
+{
+  path: 'pages/cardform/index',
+  config: {
+    navigationBarTitleText: '卡信息'
+  }
 }
 ]
