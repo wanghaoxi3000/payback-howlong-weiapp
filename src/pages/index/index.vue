@@ -1,5 +1,6 @@
 <template>
   <div class="page">
+    <van-notify id="van-notify" />
     <BaseBlock title="卡信息" buttonTitle="创建" buttonIcon="add-o" :loading="loading" @clickButton="openDialog" />
 
     <div class="loading" v-if="loading">
@@ -8,7 +9,7 @@
 
     <CreditList :credits="creditList" @openPopup="openPopup"></CreditList>
 
-    <CreditPopup :showPopup.sync="showPopup" :creditItem="creditItem" @openDialog="openDialog" @fetchData="fetchData()"/>
+    <CreditPopup :showPopup.sync="showPopup" :creditItem="creditItem" @openDialog="openDialog" @fetchData="fetchData"/>
 
     <van-dialog id="van-dialog"
       :show="EditDialog"
@@ -44,7 +45,7 @@ export default {
         Name: '',
         BillDay: '',
         PayDay: '',
-        PayFix: false
+        PayFix: true
       },
       showPopup: false,
       EditDialog: false,

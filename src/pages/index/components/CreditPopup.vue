@@ -6,12 +6,15 @@
       <van-button size="large" type="danger" custom-class="handle-botton" @click="clickDelete"><van-icon name="delete" custom-class="edit-icon"/> 删除</van-button>
     </van-popup>
 
-    <van-dialog id="van-dialog" :show="deleteDialog" :showCancelButton="true" title="删除" message="此操作将永久删除该文件, 是否继续?" @confirm="deleteconfirm" @close="closeDialog"/>
+    <van-dialog id="van-dialog" :show="deleteDialog" :showCancelButton="true" title="删除" message="即将删除此条记录, 是否继续?" @confirm="deleteconfirm" @close="closeDialog"/>
   </div>
 </template>
 
 <script>
 import { deleteCredit } from '@/api/credit.js'
+
+import Notify from '@/../static/vant/notify/notify'
+
 export default {
   props: {
     creditItem: {
@@ -49,11 +52,15 @@ export default {
     },
     async deleteconfirm () {
       try {
-        const { data } = deleteCredit(this.creditItem.Id)
-        console.log(data)
+        deleteCredit(this.creditItem.Id)
         this.$emit('fetchData')
+        Notify({
+          text: '删除成功',
+          backgroundColor: '#4b0'
+        })
       } catch (err) {
         console.log(err)
+        Notify('删除失败')
       }
     }
   }
