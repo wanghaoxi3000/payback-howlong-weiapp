@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <van-notify id="van-notify" />
-    <BaseBlock title="卡信息" buttonTitle="创建" buttonIcon="add-o" :loading="loading" @clickButton="openDialog" />
+    <BaseBlock title="卡信息" buttonTitle="创建" buttonIcon="add-o" @clickButton="clickCreate" />
 
     <div class="loading" v-if="loading">
       <van-loading/>
@@ -11,7 +11,7 @@
 
     <CreditPopup :showPopup.sync="showPopup" :creditItem="creditItem" @openDialog="openDialog" @fetchData="fetchData"/>
 
-    <van-dialog id="van-dialog"
+    <!-- <van-dialog id="van-dialog"
       :show="EditDialog"
       use-slot
       :showCancelButton="true"
@@ -21,7 +21,7 @@
       <van-field :value="creditItem.BillDay" type="number" label="账单日" placeholder="请输入账单日" :error-message="errorVal.BillDay" :border="true" @change="changeBillDay"/>
       <van-field :value="creditItem.PayDay" type="number" label="还款日" placeholder="请输入还款日" :error-message="errorVal.PayDay" :border="true" @change="changePayDay"/>
       <div class="billDay"><span>固定还款日: &nbsp;&nbsp;</span><van-switch :checked="creditItem.PayFix" size="20px" @change="changePayFix"/></div>
-    </van-dialog>
+    </van-dialog> -->
   </div>
 </template>
 
@@ -79,16 +79,22 @@ export default {
       this.showPopup = true
     },
 
-    openDialog () {
-      /** @description 点击创建按钮 弹出Dialog */
-      this.EditDialog = true
-      for (const v in this.creditItem) {
-        if (typeof this.creditItem[v] === 'boolean') {
-          this.creditItem[v] = false
-          continue
-        }
-        this.creditItem[v] = ''
-      }
+    // openDialog () {
+    //   /** @description 点击创建按钮 弹出Dialog */
+    //   this.EditDialog = true
+    //   for (const v in this.creditItem) {
+    //     if (typeof this.creditItem[v] === 'boolean') {
+    //       this.creditItem[v] = false
+    //       continue
+    //     }
+    //     this.creditItem[v] = ''
+    //   }
+    // },
+
+    clickCreate () {
+      wx.navigateTo({
+        url: '/pages/cardform/index'
+      })
     },
 
     closeDialog () {

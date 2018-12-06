@@ -1,20 +1,22 @@
 <template>
-  <div>
-    <div :class="{'base-content--padding' : padding}">
-      <p class="base-content__header">创建</p>
-      <!-- <a class="base-content-button" href="/pages/cardform">
-        <van-icon :name="buttonIcon" custom-class="base-content-button__icon"/>&nbsp; 123
-      </a>-->
-      <slot></slot>
-    </div>
+  <div class="page">
+    <BaseBlock title="输入卡信息">
+      <van-cell-group>
+        <van-field
+          :value="creditItem.Name"
+          label="名称"
+          placeholder="请输入名称"
+        />
+        <van-field
+          :value="creditItem.BillDay"
+          type="number"
+          label="账单日"
+          placeholder="请输入账单日"
+        />
+      </van-cell-group>
+    </BaseBlock>
+  </div>
 
-    <van-field
-      :value="creditItem.Name"
-      label="名称"
-      placeholder="请输入名称"
-      :border="true"
-      @change="changeName"
-    />
     <!-- <van-field
       :value="creditItem.Name"
       label="名称"
@@ -44,21 +46,15 @@
       <span>固定还款日: &nbsp;&nbsp;</span>
       <van-switch :checked="creditItem.PayFix" size="20px" @change="changePayFix"/>
     </div>-->
-  </div>
 </template>
 
 <script>
-// App({
-//   onLaunch: function (options) {
-//     console.log(options, 123)
-//     var extraData = null
-//     if (options.referrerInfo.extraData) {
-//       extraData = options.referrerInfo.extraData
-//     }
-//   }
-// })
+import BaseBlock from '@/components/BaseBlock'
 
 export default {
+  components: {
+    BaseBlock
+  },
   data () {
     return {
       creditItem: {
@@ -89,7 +85,6 @@ export default {
   },
   methods: {
     onLoad () {
-      console.log(1111)
       console.log(this.$root.$mp.query)
     },
     changeName ({ mp }) {

@@ -16,9 +16,6 @@ module.exports = [{
       'van-cell-group': '/static/vant/cell-group/index',
       'van-popup': '/static/vant/popup/index',
       'van-dialog': '/static/vant/dialog/index',
-      'van-field': '/static/vant/field/index',
-      'van-stepper': '/static/vant/stepper/index',
-      'van-switch': '/static/vant/switch/index',
       'van-notify': '/static/vant/notify/index'
     }
   }
@@ -36,7 +33,12 @@ module.exports = [{
 {
   path: 'pages/cardform/index',
   config: {
-    navigationBarTitleText: '卡信息'
+    navigationBarTitleText: '管理',
+    usingComponents: {
+      'van-cell-group': '/static/vant/cell-group/index',
+      'van-field': '/static/vant/field/index',
+      'van-switch': '/static/vant/switch/index'
+    }
   }
 }
 ]
