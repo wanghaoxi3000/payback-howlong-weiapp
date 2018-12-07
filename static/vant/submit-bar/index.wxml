@@ -5,12 +5,14 @@
     {{ tipStr }}<slot name="tip" />
   </view>
 
-  <view class="van-submit-bar__bar bar-class">
+  <view class="{{ barClass }}">
     <slot />
     <view class="van-submit-bar__text">
       <block wx:if="{{ hasPrice }}">
         <text>{{ label || '合计：' }}</text>
-        <text class="van-submit-bar__price price-class">{{ currency }} {{ priceStr }}</text>
+        <text class="van-submit-bar__price price-class">
+          <text class="van-submit-bar__currency">{{ currency }}</text> {{ priceStr }}
+        </text>
       </block>
     </view>
     <van-button

@@ -1,20 +1,51 @@
 <template>
   <div class="page">
-    <BaseBlock title="输入卡信息">
+    <BaseBlock title="输入卡信息"/>
       <van-cell-group>
         <van-field
-          :value="creditItem.Name"
+          :value="cardInfo.Name"
           label="名称"
           placeholder="请输入名称"
         />
         <van-field
-          :value="creditItem.BillDay"
+          :value="cardInfo.BillDay"
           type="number"
           label="账单日"
           placeholder="请输入账单日"
         />
+        <van-field
+          :value="cardInfo.PayDay"
+          type="number"
+          label="还款日"
+          placeholder="请输入还款日"
+        />
+        <van-switch-cell
+          title="固定还款日"
+          :checked="cardInfo.PayFix"
+          @change="changePayFix"
+        />
       </van-cell-group>
-    </BaseBlock>
+
+      <van-cell-group>
+        <van-cell title=" " :border="false">
+          <view slot="right-icon">
+            <van-button
+              type="default"
+              size="small"
+              custom-class="cardform-button"
+              @click="cancel"
+            >
+              取消
+            </van-button>
+            <van-button
+              type="primary"
+              size="small"
+              custom-class="cardform-button">
+              确定
+            </van-button>
+          </view>
+        </van-cell>
+      </van-cell-group>
   </div>
 
     <!-- <van-field
@@ -57,7 +88,7 @@ export default {
   },
   data () {
     return {
-      creditItem: {
+      cardInfo: {
         Name: '',
         BillDay: '',
         PayDay: '',
@@ -69,20 +100,9 @@ export default {
       }
     }
   },
-  // onLaunch: function (options) {
-  //   console.log(options, 456)
-  //   // 这里接收不到传输的extraData对象，url参数可获取到
-  //   // 需用小程序原生App({})
+  // onLoad () {
+  //   this.onLoad()
   // },
-  // onShow: function (options) {
-  //   // 这里接收不到传输的extraData对象，url参数可获取到
-  //   // 需用小程序原生App({})
-  //   console.log(options, 789)
-  // },
-
-  onLoad () {
-    this.onLoad()
-  },
   methods: {
     onLoad () {
       console.log(this.$root.$mp.query)
@@ -115,13 +135,27 @@ export default {
       }
     },
 
+    onChange ({mp}) {
+      console.log(this.checked)
+      this.checked = mp.detail
+      console.log(this.checked)
+    },
+
     changePayFix ({ mp }) {
       /** @description 监听PayFix值 */
-      this.creditItem.PayFix = mp.detail
+      this.cardInfo.PayFix = mp.detail
+    },
+
+    cancel () {
+      /** @description 取消并返回上一级 */
+      wx.navigateBack({delta: 1})
     }
   }
 }
 </script>
 
 <style>
+.cardform-button {
+  margin-right: 10px;
+}
 </style>

@@ -36,8 +36,10 @@ module.exports = [{
     navigationBarTitleText: '管理',
     usingComponents: {
       'van-cell-group': '/static/vant/cell-group/index',
+      'van-cell': '/static/vant/cell/index',
       'van-field': '/static/vant/field/index',
-      'van-switch': '/static/vant/switch/index'
+      'van-switch-cell': '/static/vant/switch-cell/index',
+      'van-button': '/static/vant/button/index'
     }
   }
 }

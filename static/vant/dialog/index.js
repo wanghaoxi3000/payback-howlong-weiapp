@@ -30,6 +30,10 @@ VantComponent({
     overlay: {
       type: Boolean,
       value: true
+    },
+    transition: {
+      type: String,
+      value: 'scale'
     }
   },
   data: {
@@ -55,7 +59,7 @@ VantComponent({
     },
     handleAction: function handleAction(action) {
       if (this.data.asyncClose) {
-        this.setData({
+        this.set({
           ["loading." + action]: true
         });
       }
@@ -63,12 +67,12 @@ VantComponent({
       this.onClose(action);
     },
     close: function close() {
-      this.setData({
+      this.set({
         show: false
       });
     },
     stopLoading: function stopLoading() {
-      this.setData({
+      this.set({
         loading: {
           confirm: false,
           cancel: false

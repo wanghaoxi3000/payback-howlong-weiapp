@@ -9,11 +9,13 @@
   title-width="{{ titleWidth }}"
   custom-class="van-field"
 >
+  <slot name="left-icon" slot="icon" />
   <slot name="label" slot="title" />
   <view class="van-field__body {{ type === 'textarea' ? 'van-field__body--textarea' : '' }}">
     <textarea
       wx:if="{{ type === 'textarea' }}"
       class="{{ inputClass }}"
+      fixed="{{ fixed }}"
       focus="{{ focus }}"
       value="{{ value }}"
       disabled="{{ disabled || readonly }}"
@@ -23,6 +25,7 @@
       placeholder-style="{{ placeholderStyle }}"
       placeholder-class="{{ error ? 'van-field--error' : '' }}"
       cursor-spacing="{{ cursorSpacing }}"
+      adjust-position="{{ adjustPosition }}"
       bindinput="onInput"
       bind:blur="onBlur"
       bind:focus="onFocus"
@@ -40,7 +43,9 @@
       placeholder-style="{{ placeholderStyle }}"
       placeholder-class="{{ error ? 'van-field--error' : '' }}"
       confirm-type="{{ confirmType }}"
+      confirm-hold="{{ confirmHold }}"
       cursor-spacing="{{ cursorSpacing }}"
+      adjust-position="{{ adjustPosition }}"
       bindinput="onInput"
       bind:blur="onBlur"
       bind:focus="onFocus"
@@ -48,6 +53,7 @@
     />
     <van-icon
       wx:if="{{ showClear }}"
+      size="16px"
       name="clear"
       class="van-field__clear-root"
       custom-class="van-field__clear"
@@ -56,6 +62,7 @@
     <view class="van-field__icon-container" wx:if="{{ icon || useIconSlot }}" bind:tap="onClickIcon">
       <van-icon
         wx:if="{{ icon }}"
+        size="16px"
         name="{{ icon }}"
         custom-class="van-field__icon {{ iconClass }}"
       />

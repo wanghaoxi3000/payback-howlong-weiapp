@@ -16,7 +16,7 @@ VantComponent({
       var _this$data = this.data,
           span = _this$data.span,
           offset = _this$data.offset;
-      return this.classNames('custom-class', 'van-col', {
+      return this.classNames('van-col', {
         ["van-col--" + span]: span,
         ["van-col--offset-" + offset]: offset
       });
@@ -28,7 +28,7 @@ VantComponent({
       var style = gutter ? "padding-left: " + padding + "; padding-right: " + padding + ";" : '';
 
       if (style !== this.data.style) {
-        this.setData({
+        this.set({
           style: style
         });
       }

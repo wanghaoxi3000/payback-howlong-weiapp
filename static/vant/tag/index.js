@@ -1,9 +1,10 @@
 import { VantComponent } from '../common/component';
+import { RED, BLUE, GREEN } from '../common/color';
 var DEFAULT_COLOR = '#999';
 var COLOR_MAP = {
-  danger: '#f44',
-  primary: '#38f',
-  success: '#06bf04'
+  danger: RED,
+  primary: BLUE,
+  success: GREEN
 };
 VantComponent({
   props: {
@@ -17,7 +18,7 @@ VantComponent({
   computed: {
     classes: function classes() {
       var data = this.data;
-      return this.classNames('van-tag', 'custom-class', {
+      return this.classNames('van-tag', {
         'van-tag--mark': data.mark,
         'van-tag--plain': data.plain,
         'van-tag--round': data.round,
