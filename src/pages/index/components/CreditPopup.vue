@@ -52,7 +52,7 @@ export default {
     },
     async deleteconfirm () {
       try {
-        deleteCredit(this.creditItem.Id)
+        await deleteCredit(this.creditItem.Id)
         this.$emit('fetchData')
         Notify({
           text: '删除成功',

@@ -1,23 +1,30 @@
 <template>
   <div class="page">
+    <van-notify id="van-notify" />
+
     <BaseBlock title="输入卡信息"/>
       <van-cell-group>
         <van-field
           :value="cardInfo.Name"
           label="名称"
           placeholder="请输入名称"
+          @change="changeName"
         />
         <van-field
-          :value="cardInfo.BillDay"
+          v-model="cardInfo.BillDay"
           type="number"
           label="账单日"
           placeholder="请输入账单日"
+          @change="changeBillDay"
+          :error-message="errorVal.BillDay"
         />
         <van-field
-          :value="cardInfo.PayDay"
+          v-model="cardInfo.PayDay"
           type="number"
-          label="还款日"
-          placeholder="请输入还款日"
+          :label="cardInfo.PayFix ? '还款日' : '还款间隔'"
+          :placeholder="cardInfo.PayFix ? '请输入还款日' : '请输入还款间隔'"
+          @change="changePayDay"
+          :error-message="errorVal.PayDay"
         />
         <van-switch-cell
           title="固定还款日"
@@ -27,7 +34,7 @@
       </van-cell-group>
 
       <van-cell-group>
-        <van-cell title=" " :border="false">
+        <van-cell title=" " :border="false" @click.stop>
           <view slot="right-icon">
             <van-button
               type="default"
@@ -40,46 +47,21 @@
             <van-button
               type="primary"
               size="small"
-              custom-class="cardform-button">
+              custom-class="cardform-button"
+              :disabled="forbidSubmit"
+              @click="submit"
+            >
               确定
             </van-button>
           </view>
         </van-cell>
       </van-cell-group>
   </div>
-
-    <!-- <van-field
-      :value="creditItem.Name"
-      label="名称"
-      placeholder="请输入名称"
-      :border="true"
-      @change="changeName"
-    />
-    <van-field
-      :value="creditItem.BillDay"
-      type="number"
-      label="账单日"
-      placeholder="请输入账单日"
-      :error-message="errorVal.BillDay"
-      :border="true"
-      @change="changeBillDay"
-    />
-    <van-field
-      :value="creditItem.PayDay"
-      type="number"
-      label="还款日"
-      placeholder="请输入还款日"
-      :error-message="errorVal.PayDay"
-      :border="true"
-      @change="changePayDay"
-    />
-    <div class="billDay">
-      <span>固定还款日: &nbsp;&nbsp;</span>
-      <van-switch :checked="creditItem.PayFix" size="20px" @change="changePayFix"/>
-    </div>-->
 </template>
 
 <script>
+import {addCredit} from '@/api/credit'
+import Notify from '@/../static/vant/notify/notify'
 import BaseBlock from '@/components/BaseBlock'
 
 export default {
@@ -103,47 +85,79 @@ export default {
   // onLoad () {
   //   this.onLoad()
   // },
+
+  computed: {
+    forbidSubmit () {
+      if (this.errorVal.BillDay || this.errorVal.PayDay) {
+        return true
+      }
+
+      for (const v in this.cardInfo) {
+        if (v !== 'PayFix' && !this.cardInfo[v]) {
+          return true
+        }
+      }
+
+      return false
+    }
+  },
+
   methods: {
     onLoad () {
       console.log(this.$root.$mp.query)
     },
+
     changeName ({ mp }) {
       /** @description 监听Name值 */
-      this.creditItem.Name = mp.detail
+      this.cardInfo.Name = mp.detail
     },
 
     changeBillDay ({ mp }) {
       /** @description 监听BillDay值 */
+      this.cardInfo.BillDay = parseInt(mp.detail)
 
-      this.creditItem.BillDay = parseInt(mp.detail)
-      if (this.creditItem.BillDay > 29) {
-        this.errorVal.BillDay = '不能大于29'
-      }
-      if (this.creditItem.BillDay < 29) {
+      if (this.cardInfo.BillDay > 29) {
+        this.errorVal.BillDay = '不能大于29 (29代表每月最后一天)'
+      } else {
         this.errorVal.BillDay = ''
       }
     },
 
     changePayDay ({ mp }) {
       /** @description 监听PayDay值 */
-      this.creditItem.PayDay = parseInt(mp.detail)
-      if (this.creditItem.PayDay > 28) {
+      this.cardInfo.PayDay = parseInt(mp.detail)
+
+      if (this.cardInfo.PayDay > 28) {
         this.errorVal.PayDay = '不能大于28'
-      }
-      if (this.creditItem.PayDay < 28) {
+      } else {
         this.errorVal.PayDay = ''
       }
-    },
-
-    onChange ({mp}) {
-      console.log(this.checked)
-      this.checked = mp.detail
-      console.log(this.checked)
     },
 
     changePayFix ({ mp }) {
       /** @description 监听PayFix值 */
       this.cardInfo.PayFix = mp.detail
+    },
+
+    async submit () {
+      /** @description 提交数据 */
+      if (!this.forbidSubmit) { // van-button disable 后仍会触发 click 事件
+        try {
+          await addCredit(this.cardInfo)
+          wx.navigateBack({
+            delta: 1,
+            // url: '/pages/index/index'
+            complete () {
+              Notify({
+                text: '创建成功',
+                backgroundColor: '#4b0'
+              })
+            }
+          })
+        } catch (err) {
+          Notify(err.response.data.error)
+        }
+      }
     },
 
     cancel () {

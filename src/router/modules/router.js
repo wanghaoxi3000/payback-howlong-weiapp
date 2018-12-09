@@ -19,16 +19,6 @@ module.exports = [{
       'van-notify': '/static/vant/notify/index'
     }
   }
-}, {
-  path: 'pages/counter'
-}, {
-  path: 'pages/log/logs',
-  config: {
-    navigationBarTitleText: '查看启动日志'
-  }
-},
-{
-  path: 'components/BaseBlock/index'
 },
 {
   path: 'pages/cardform/index',
@@ -39,8 +29,24 @@ module.exports = [{
       'van-cell': '/static/vant/cell/index',
       'van-field': '/static/vant/field/index',
       'van-switch-cell': '/static/vant/switch-cell/index',
-      'van-button': '/static/vant/button/index'
+      'van-button': '/static/vant/button/index',
+      'van-notify': '/static/vant/notify/index'
     }
   }
+},
+
+{
+  path: 'pages/counter'
+},
+{
+  path: 'pages/log/logs',
+  config: {
+    navigationBarTitleText: '查看启动日志'
+  }
+},
+
+// 公共组件
+{
+  path: 'components/BaseBlock/index'
 }
 ]
