@@ -13,5 +13,5 @@ export function deleteCredit (id) {
 }
 
 export function editCredit (data) {
-  return fly.put(`/credits/${data.id}/`, data)
+  return fly.put(`/credits/${data.Id}/`, data)
 }

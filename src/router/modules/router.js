@@ -15,7 +15,6 @@ module.exports = [{
       'van-cell': '/static/vant/cell/index',
       'van-cell-group': '/static/vant/cell-group/index',
       'van-popup': '/static/vant/popup/index',
-      'van-dialog': '/static/vant/dialog/index',
       'van-notify': '/static/vant/notify/index'
     }
   }

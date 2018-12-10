@@ -9,7 +9,7 @@
 
     <CreditList v-else :credits="creditList" @openPopup="openPopup"></CreditList>
 
-    <CreditPopup :showPopup.sync="showPopup" :creditItem="creditItem" @openDialog="openDialog" @fetchData="fetchData"/>
+    <CreditPopup :showPopup.sync="showPopup" :creditItem="creditItem" @editItem="clickEdit" @fetchData="fetchData"/>
   </div>
 </template>
 
@@ -62,7 +62,7 @@ export default {
     },
 
     refreshData () {
-      /** @description 从其他页面调回时重载数据 */
+      /** @description 从其他页面跳回时重载数据 */
       if (this.refresh) {
         this.fetchData()
       }
@@ -74,21 +74,19 @@ export default {
       this.showPopup = true
     },
 
-    // openDialog () {
-    //   /** @description 点击创建按钮 弹出Dialog */
-    //   this.EditDialog = true
-    //   for (const v in this.creditItem) {
-    //     if (typeof this.creditItem[v] === 'boolean') {
-    //       this.creditItem[v] = false
-    //       continue
-    //     }
-    //     this.creditItem[v] = ''
-    //   }
-    // },
-
     clickCreate () {
+      /** @description 点击创建按钮跳转页面 */
       wx.navigateTo({
         url: '/pages/cardform/index'
+      })
+    },
+
+    clickEdit () {
+      /** @description 点击修改按钮跳转页面 */
+      let creditItem = Object.assign({}, this.creditItem)
+      delete creditItem.DateDetail
+      wx.navigateTo({
+        url: `/pages/cardform/index?data=${JSON.stringify(creditItem)}`
       })
     }
   }

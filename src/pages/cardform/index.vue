@@ -2,7 +2,7 @@
   <div class="page">
     <van-notify id="van-notify" />
 
-    <BaseBlock title="输入卡信息"/>
+    <BaseBlock :title="this.cardInfo.Id ? '编辑卡信息' : '输入卡信息'"/>
       <van-cell-group>
         <van-field
           :value="cardInfo.Name"
@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import {addCredit} from '@/api/credit'
+import {addCredit, editCredit} from '@/api/credit'
 import Notify from '@/../static/vant/notify/notify'
 import BaseBlock from '@/components/BaseBlock'
 
@@ -82,9 +82,10 @@ export default {
       }
     }
   },
-  // onLoad () {
-  //   this.onLoad()
-  // },
+
+  onLoad () {
+    this.checkData()
+  },
 
   computed: {
     forbidSubmit () {
@@ -103,8 +104,11 @@ export default {
   },
 
   methods: {
-    onLoad () {
-      console.log(this.$root.$mp.query)
+    checkData () {
+      /** @description 检查是否为修改数据 */
+      if (this.$root.$mp.query.data) {
+        this.cardInfo = JSON.parse(this.$root.$mp.query.data)
+      }
     },
 
     changeName ({ mp }) {
@@ -143,17 +147,29 @@ export default {
       /** @description 提交数据 */
       if (!this.forbidSubmit) { // van-button disable 后仍会触发 click 事件
         try {
-          await addCredit(this.cardInfo)
-          wx.navigateBack({
-            delta: 1,
-            // url: '/pages/index/index'
-            complete () {
-              Notify({
-                text: '创建成功',
-                backgroundColor: '#4b0'
-              })
-            }
-          })
+          if (this.cardInfo.Id) {
+            await editCredit(this.cardInfo)
+            wx.navigateBack({
+              delta: 1,
+              complete () {
+                Notify({
+                  text: '修改成功',
+                  backgroundColor: '#4b0'
+                })
+              }
+            })
+          } else {
+            await addCredit(this.cardInfo)
+            wx.navigateBack({
+              delta: 1,
+              complete () {
+                Notify({
+                  text: '创建成功',
+                  backgroundColor: '#4b0'
+                })
+              }
+            })
+          }
         } catch (err) {
           Notify(err.response.data.error)
         }

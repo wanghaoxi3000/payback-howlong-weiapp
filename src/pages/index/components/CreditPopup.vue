@@ -24,10 +24,6 @@ export default {
     showPopup: {
       type: Boolean,
       default: false
-    },
-    creditEditDialog: {
-      type: Boolean,
-      default: false
     }
   },
   data () {
@@ -37,7 +33,7 @@ export default {
   },
   methods: {
     clickEdit () {
-      this.$emit('openDialog')
+      this.$emit('editItem')
       this.closePopup()
     },
     clickDelete () {
