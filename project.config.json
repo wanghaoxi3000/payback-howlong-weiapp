@@ -10,7 +10,7 @@
 	},
 	"miniprogramRoot": "dist/",
 	"compileType": "miniprogram",
-	"appid": "touristappid",
+	"appid": "wxb40e5584bd050a2c",
 	"projectname": "howlong-weiapp",
 	"condition": {
 		"search": {

@@ -15,6 +15,7 @@
 
 <script>
 import { creditList } from '@/api/credit.js'
+import Notify from '@/../static/vant/notify/notify'
 import BaseBlock from '@/components/BaseBlock'
 import CreditList from './components/CreditList'
 import CreditPopup from './components/CreditPopup'
@@ -41,7 +42,7 @@ export default {
   },
 
   created () {
-    this.initData()
+    this.login()
   },
 
   onShow () {
@@ -49,8 +50,23 @@ export default {
   },
 
   methods: {
-    async initData () {
-      await this.$store.dispatch('Login', '1')
+    login () {
+      const app = this
+      wx.login({
+        success (res) {
+          if (res.code) {
+            app.initData(res.code)
+          } else {
+            Notify('登录失败, 请重试')
+            // TODO: 登录失败埋点
+            console.log('login error' + res.errMsg)
+          }
+        }
+      })
+    },
+
+    async initData (jsCode) {
+      await this.$store.dispatch('Login', jsCode)
       await this.fetchData()
       this.loading = false
       this.refresh = true
