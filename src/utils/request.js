@@ -24,6 +24,7 @@ fly.interceptors.request.use(request => {
         store.commit('SET_TOKEN', res.data.token)
         store.commit('NOW_TIME', Date.now())
       }, err => {
+        // TODO: 刷新失败埋点
         console.log('Refresh Token Error: ' + err)
       })
     }
@@ -31,19 +32,5 @@ fly.interceptors.request.use(request => {
 
   return request
 })
-
-// 添加响应拦截器，响应拦截器会在then/catch处理之前执行
-// fly.interceptors.response.use(
-//   (response) => {
-//     if (process.env.NODE_ENV === 'development') {
-//       console.log(response.data)
-//     }
-//     return response
-//   },
-//   (err) => {
-//     console.log(err.status)
-//     return err
-//   }
-// )
 
 export default fly

@@ -34,16 +34,6 @@ module.exports = [{
   }
 },
 
-{
-  path: 'pages/counter'
-},
-{
-  path: 'pages/log/logs',
-  config: {
-    navigationBarTitleText: '查看启动日志'
-  }
-},
-
 // 公共组件
 {
   path: 'components/BaseBlock/index'

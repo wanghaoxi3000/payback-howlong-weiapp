@@ -1,9 +1,6 @@
 import {
   login
 } from '@/api/auth.js'
-// import { parseTime } from '@/utils'
-
-// import Cookies from 'js-cookie'
 
 const user = {
   state: {
@@ -30,7 +27,7 @@ const user = {
           commit('NOW_TIME', Date.now())
           resolve()
         }).catch(error => {
-          console.log(error.response)
+          // TODO: 登录失败埋点
           reject(error)
         })
       })
