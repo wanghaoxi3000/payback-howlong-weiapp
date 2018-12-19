@@ -58,8 +58,7 @@ export default {
             app.initData(res.code)
           } else {
             Notify('登录失败, 请重试')
-            // TODO: 登录失败埋点
-            console.log('login error' + res.errMsg)
+            wx.reportMonitor('2', 1)
           }
         }
       })

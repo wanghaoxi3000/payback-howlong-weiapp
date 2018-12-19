@@ -24,7 +24,7 @@ fly.interceptors.request.use(request => {
         store.commit('SET_TOKEN', res.data.token)
         store.commit('NOW_TIME', Date.now())
       }, err => {
-        // TODO: 刷新失败埋点
+        wx.reportMonitor('1', 1)
         console.log('Refresh Token Error: ' + err)
       })
     }

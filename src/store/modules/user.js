@@ -27,7 +27,7 @@ const user = {
           commit('NOW_TIME', Date.now())
           resolve()
         }).catch(error => {
-          // TODO: 登录失败埋点
+          wx.reportMonitor('0', 1)
           reject(error)
         })
       })
