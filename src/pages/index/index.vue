@@ -57,15 +57,21 @@ export default {
           if (res.code) {
             app.initData(res.code)
           } else {
-            Notify('登录失败, 请重试')
-            wx.reportMonitor('2', 1)
+            Notify('获取 user code 失败, 请重试')
           }
         }
       })
     },
 
     async initData (jsCode) {
-      await this.$store.dispatch('Login', jsCode)
+      try {
+        await this.$store.dispatch('Login', jsCode)
+      } catch (err) {
+        wx.reportMonitor('0', 1)
+        Notify('登录失败, 请重试')
+        this.loading = false
+        return
+      }
       await this.fetchData()
       this.loading = false
       this.refresh = true

@@ -27,7 +27,6 @@ const user = {
           commit('NOW_TIME', Date.now())
           resolve()
         }).catch(error => {
-          wx.reportMonitor('0', 1)
           reject(error)
         })
       })

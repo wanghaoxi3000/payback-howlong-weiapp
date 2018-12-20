@@ -6,7 +6,7 @@ config 页面配置，即 page.json 的内容
 module.exports = [{
   path: '/pages/index/index',
   config: {
-    navigationBarTitleText: 'How Long',
+    navigationBarTitleText: '今天刷啥好',
     usingComponents: {
       'van-loading': '/static/vant/loading/index',
       'van-transition': '/static/vant/transition/index',

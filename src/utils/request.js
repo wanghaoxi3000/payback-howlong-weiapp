@@ -13,7 +13,7 @@ fly.interceptors.request.use(request => {
   if (store.getters.token) {
     request.headers['Authorization'] = store.getters.jwtToken
     // 更新Token，延长过期时间
-    if (Date.now() - store.getters.nowTime > 600) {
+    if (Date.now() - store.getters.nowTime > 60000) {
       tokenrRefresh.request('/auth/refresh-token/', {}, {
         method: 'get',
         timeout: 5000, // 超时设置为5s
