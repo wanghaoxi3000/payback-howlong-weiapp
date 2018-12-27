@@ -24,7 +24,9 @@ module.exports = {
     // allow async-await
     'generator-star-spacing': 0,
     // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
+    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
+    // 便于偶尔屏蔽某段代码进行调试
+    'no-unused-vars': [1, { "vars": "all", "args": "after-used" }]
   },
   globals: {
     App: true,

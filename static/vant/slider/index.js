@@ -25,6 +25,11 @@ VantComponent({
       value: '2px'
     }
   },
+  watch: {
+    value: function value(_value) {
+      this.updateValue(_value, false);
+    }
+  },
   created: function created() {
     this.updateValue(this.data.value);
   },
@@ -61,7 +66,7 @@ VantComponent({
     },
     updateValue: function updateValue(value, end) {
       value = this.format(value);
-      this.setData({
+      this.set({
         value: value,
         barStyle: "width: " + value + "%; height: " + this.data.barHeight + ";"
       });

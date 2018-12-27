@@ -6,11 +6,15 @@
       <van-button size="large" type="danger" custom-class="handle-botton" @click="clickDelete"><van-icon name="delete" custom-class="edit-icon"/> 删除</van-button>
     </van-popup>
 
-    <van-dialog id="van-dialog" :show="deleteDialog" :showCancelButton="true" title="删除" message="此操作将永久删除该文件, 是否继续?" @close="closeDialog"/>
+    <van-dialog id="van-dialog" :show="deleteDialog" :showCancelButton="true" title="删除" message="即将删除此条记录, 是否继续?" @confirm="deleteconfirm" @close="closeDialog"/>
   </div>
 </template>
 
 <script>
+import { deleteCredit } from '@/api/credit.js'
+
+import Notify from '@/../static/vant/notify/notify'
+
 export default {
   props: {
     creditItem: {
@@ -18,10 +22,6 @@ export default {
       default: {}
     },
     showPopup: {
-      type: Boolean,
-      default: false
-    },
-    creditEditDialog: {
       type: Boolean,
       default: false
     }
@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     clickEdit () {
-      this.$emit('openDialog')
+      this.$emit('editItem')
       this.closePopup()
     },
     clickDelete () {
@@ -45,6 +45,19 @@ export default {
     },
     closePopup () {
       this.$emit('update:showPopup', false)
+    },
+    async deleteconfirm () {
+      try {
+        await deleteCredit(this.creditItem.Id)
+        this.$emit('fetchData')
+        Notify({
+          text: '删除成功',
+          backgroundColor: '#4b0'
+        })
+      } catch (err) {
+        console.log(err)
+        Notify('删除失败')
+      }
     }
   }
 }
@@ -67,10 +80,9 @@ export default {
   line-height: 60px !important;
   padding: 0px 0 0 30px !important;
 }
-.billDay{
+.billDay {
   display: flex;
   font-size: 16px;
-  padding:10px 15px;
-
+  padding: 10px 15px;
 }
 </style>

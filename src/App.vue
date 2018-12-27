@@ -1,23 +1,7 @@
 <script>
-// import {login} from '@/api/user.js'
 
 export default {
-  created () {
-    // wx.login({
-    //   success: info => {
-    //     login(info.code)
-    //   }
-    // })
-    // login('1')
 
-    // 调用API从本地缓存中获取数据
-    const logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-
-    // eslint-disable-next-line
-    console.log('app created and cache logs by setStorageSync')
-  }
 }
 </script>
 
@@ -32,7 +16,8 @@ export default {
   box-sizing: border-box;
   padding: 0 0 100rpx;
   -webkit-font-smoothing: antialiased;
-  font-family: 'PingFang SC', Helvetica, 'STHeiti STXihei', 'Microsoft YaHei', Tohoma, Arial, sans-serif;
+  font-family: "PingFang SC", Helvetica, "STHeiti STXihei", "Microsoft YaHei",
+    Tohoma, Arial, sans-serif;
 }
 
 .container {

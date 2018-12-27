@@ -3,16 +3,23 @@
   bind:tap="onClick"
 >
   <view class="van-tabbar-item__icon {{ dot ? 'van-tabbar-item__icon--dot' : '' }}">
-    <van-icon wx:if="{{ icon }}" name="{{ icon }}" info="{{ info }}" />
+    <van-icon
+      wx:if="{{ icon }}"
+      name="{{ icon }}"
+      customStyle="display: block"
+    />
     <block wx:else>
-      <block wx:if="{{ active }}">
-        <slot name="icon-active" />
-      </block>
-      <block wx:else>
-        <slot name="icon" />
-      </block>
-      <view wx:if="{{ info !== null }}" class="van-icon__info">{{ info }}</view>
+      <slot
+        wx:if="{{ active }}"
+        name="icon-active"
+      />
+      <slot wx:else name="icon" />
     </block>
+    <van-info
+      wx:if="{{ info !== null }}"
+      info="{{ info }}"
+      custom-style="margin-top: 2px"
+    />
   </view>
   <view class="van-tabbar-item__text">
     <slot />

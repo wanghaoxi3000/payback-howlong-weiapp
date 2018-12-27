@@ -1,5 +1,7 @@
 import { VantComponent } from '../common/component';
+import { iphonex } from '../mixins/iphonex';
 VantComponent({
+  mixins: [iphonex],
   relation: {
     name: 'tabbar-item',
     type: 'descendant',
@@ -39,14 +41,14 @@ VantComponent({
   },
   watch: {
     active: function active(_active) {
-      this.setData({
+      this.set({
         currentActive: _active
       });
       this.setActiveItem();
     }
   },
   created: function created() {
-    this.setData({
+    this.set({
       currentActive: this.data.active
     });
   },
@@ -63,7 +65,7 @@ VantComponent({
 
       if (active !== this.data.currentActive && active !== -1) {
         this.$emit('change', active);
-        this.setData({
+        this.set({
           currentActive: active
         });
         this.setActiveItem();
