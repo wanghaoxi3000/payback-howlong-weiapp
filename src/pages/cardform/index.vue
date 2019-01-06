@@ -89,10 +89,12 @@ export default {
 
   computed: {
     forbidSubmit () {
+      // 检查无错误项
       if (this.errorVal.BillDay || this.errorVal.PayDay) {
         return true
       }
 
+      // 检查无未填项
       for (const v in this.cardInfo) {
         if (v !== 'PayFix' && !this.cardInfo[v]) {
           return true
