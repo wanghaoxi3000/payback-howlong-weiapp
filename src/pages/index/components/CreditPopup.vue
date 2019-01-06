@@ -33,12 +33,12 @@ export default {
   },
   methods: {
     clickEdit () {
-      this.$emit('editItem')
       this.closePopup()
+      this.$emit('editItem')
     },
     clickDelete () {
-      this.deleteDialog = true
       this.closePopup()
+      this.deleteDialog = true
     },
     closeDialog () {
       this.deleteDialog = false
