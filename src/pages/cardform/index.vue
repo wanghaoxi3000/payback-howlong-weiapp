@@ -22,12 +22,12 @@
           v-model="cardInfo.PayDay"
           type="number"
           :label="cardInfo.PayFix ? '还款日' : '还款间隔'"
-          :placeholder="cardInfo.PayFix ? '请输入还款日' : '请输入还款间隔'"
+          :placeholder="cardInfo.PayFix ? '账单日的下月几日为还款日' : '账单日的几天后为还款日'"
           @change="changePayDay"
           :error-message="errorVal.PayDay"
         />
         <van-switch-cell
-          title="固定还款日"
+          title="固定下月还款日"
           :checked="cardInfo.PayFix"
           @change="changePayFix"
         />
