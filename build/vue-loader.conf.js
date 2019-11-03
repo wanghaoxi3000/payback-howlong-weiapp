@@ -11,5 +11,6 @@ module.exports = {
     source: 'src',
     img: 'src',
     image: 'xlink:href'
-  }
+  },
+  fileExt: config.build.fileExt
 }
