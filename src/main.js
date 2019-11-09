@@ -6,6 +6,11 @@ Vue.config.productionTip = false
 App.store = store
 App.mpType = 'app'
 
+wx.cloud.init({
+  env: 'payback-howlong-weia-33jef',
+  traceUser: true
+})
+
 Vue.mixin({
   onUnload () {
     if (this.$options.data) {
