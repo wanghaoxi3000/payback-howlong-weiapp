@@ -1,7 +1,7 @@
 <template>
   <div>
     <van-popup :show="showPopup" position="bottom" custom-class="bottom" overlay-style="overlay" @close="closePopup">
-      <p class="credit">账单日: {{creditItem.BillDay}} &nbsp;&nbsp; 还款日: {{creditItem.PayDay}} &nbsp;&nbsp; 固定还款日: {{creditItem.PayFix ? '是' : '否'}}</p>
+      <p class="credit">账单日: {{creditItem.billDay}} &nbsp;&nbsp; 还款日: {{creditItem.payDay}} &nbsp;&nbsp; 固定还款日: {{creditItem.payFix ? '是' : '否'}}</p>
       <van-button size="large" custom-class="handle-botton" @click="clickEdit"><van-icon name="edit-data" custom-class="edit-icon"/> 修改</van-button>
       <van-button size="large" type="danger" custom-class="handle-botton" @click="clickDelete"><van-icon name="delete" custom-class="edit-icon"/> 删除</van-button>
     </van-popup>
@@ -48,7 +48,7 @@ export default {
     },
     async deleteconfirm () {
       try {
-        await deleteCredit(this.creditItem.Id)
+        await deleteCredit(this.creditItem._id)
         this.$emit('fetchData')
         Notify({
           text: '删除成功',

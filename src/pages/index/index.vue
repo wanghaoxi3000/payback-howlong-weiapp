@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import { creditList } from '@/api/credit.js'
 import Notify from '@/../static/vant/notify/notify'
 import BaseBlock from '@/components/BaseBlock'
 import CreditList from './components/CreditList'
@@ -78,8 +77,16 @@ export default {
     },
 
     async fetchData () {
-      const { data } = await creditList()
-      this.creditList = data
+      /** @description 获取信用卡信息 */
+      try {
+        const { result } = await wx.cloud.callFunction({name: 'creditList'})
+        this.creditList = result.data
+      } catch (err) {
+        console.log(err)
+        this.creditList = []
+        wx.reportMonitor('0', 1)
+        Notify('获取卡信息失败, 请重试')
+      }
     },
 
     refreshData () {
