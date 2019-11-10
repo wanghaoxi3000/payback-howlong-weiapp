@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import {creditList} from '@/api/credit'
 import Notify from '@/../static/vant/notify/notify'
 import BaseBlock from '@/components/BaseBlock'
 import CreditList from './components/CreditList'
@@ -41,7 +42,7 @@ export default {
   },
 
   created () {
-    this.login()
+    this.initData()
   },
 
   onShow () {
@@ -49,43 +50,25 @@ export default {
   },
 
   methods: {
-    login () {
-      const app = this
-      wx.login({
-        success (res) {
-          if (res.code) {
-            app.initData(res.code)
-          } else {
-            Notify('获取 user code 失败, 请重试')
-          }
-        }
-      })
-    },
-
-    async initData (jsCode) {
-      try {
-        await this.$store.dispatch('Login', jsCode)
-      } catch (err) {
-        wx.reportMonitor('0', 1)
-        Notify('登录失败, 请重试')
-        this.loading = false
-        return
-      }
+    async initData () {
       await this.fetchData()
-      this.loading = false
       this.refresh = true
     },
 
     async fetchData () {
       /** @description 获取信用卡信息 */
+      this.loading = true
       try {
-        const { result } = await wx.cloud.callFunction({name: 'creditList'})
+        const { result } = await creditList()
         this.creditList = result.data
       } catch (err) {
+        wx.reportMonitor('0', 1)
         console.log(err)
         this.creditList = []
         wx.reportMonitor('0', 1)
         Notify('获取卡信息失败, 请重试')
+      } finally {
+        this.loading = false
       }
     },
 

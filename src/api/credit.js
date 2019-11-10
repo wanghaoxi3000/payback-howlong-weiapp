@@ -1,9 +1,7 @@
-import fly from '@/utils/request'
-
 const db = wx.cloud.database()
 
 export function creditList () {
-  return fly.get('/credits/')
+  return wx.cloud.callFunction({name: 'creditList'})
 }
 
 export async function addCredit (data) {
@@ -38,7 +36,10 @@ export function deleteCredit (id) {
 export async function editCredit (data) {
   const { name, billDay, payDay, payFix } = data
 
-  const res = await db.collection('credits').where({name}).count()
+  const res = await db.collection('credits').where({
+    _id: db.command.neq(data._id),
+    name
+  }).count()
   if (res.total > 0) {
     return Promise.reject(new Error(`${name} 已存在`))
   }
