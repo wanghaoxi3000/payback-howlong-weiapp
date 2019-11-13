@@ -8,12 +8,7 @@
 
 
 ## 开发说明
-### 小程序客户端
-使用 [mpvue](https://github.com/Meituan-Dianping/mpvue) 开发, 组件库使用了 [vant-weapp](https://github.com/youzan/vant-weapp)
-
-### 后端
-使用 `go` 基于 `beego` 开发: [payback-howlong-server
-](https://github.com/wanghaoxi3000/payback-howlong-server)
+客户端使用 [mpvue](https://github.com/Meituan-Dianping/mpvue) 开发, 组件库使用了 [vant-weapp](https://github.com/youzan/vant-weapp)，后台基于小程序云开发平台。
 
 
 ## 使用截图
